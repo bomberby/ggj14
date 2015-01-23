@@ -38,7 +38,7 @@ mainConfig.prototype.preload = function() {
     game.load.tilemap('map', 'assets/gfx/tiles/TEST1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTiles.png');
     
-    game.load.spritesheet("player", "/assets/gfx/sprites/character.gif", 32, 32);
+    game.load.spritesheet("player", "/assets/gfx/sprites/Charcter_0001s_0001_Stand.png", 16, 16);
 };
 
 // This function is called after the preload function     
@@ -49,21 +49,24 @@ mainConfig.prototype.create = function() {
     this.MAX_SPEED = 3500; // pixels/second
     this.ACCELERATION = 3500; // pixels/second/second
 
+    
     // Set the physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.map = game.add.tilemap('map');
     this.map.addTilesetImage('VillageOverworldTiles', 'tileset');
 
+    this.map.setCollisionBetween(5,6);
+    this.map.setCollision(2);
+
     //'Village 1' is the name of a layer inside of Tiled Map Editor
     this.layer = this.map.createLayer('Tile Layer 1');
     this.layer.resizeWorld();
-    this.layer.wrap = true;
-    //this.map.setCollisionBetween(0, 100);
+    // this.layer.wrap = true;
 
     // Create a player sprite
     this.player = game.add.sprite(game.width/2, game.height/2, 'player');
-
+    this.player.anchor.setTo(.5,.5);
     // Add physics to the player
     game.physics.arcade.enable(this.player);
 
@@ -80,7 +83,8 @@ mainConfig.prototype.create = function() {
         Phaser.Keyboard.LEFT,
         Phaser.Keyboard.RIGHT,
         Phaser.Keyboard.UP,
-        Phaser.Keyboard.DOWN
+        Phaser.Keyboard.DOWN,
+        Phaser.Keyboard.SPACE
     ]);
 
     this.bubbleText("Primak");
@@ -90,11 +94,14 @@ mainConfig.prototype.create = function() {
 // It contains the game's logic 
 mainConfig.prototype.update = function() {
 
+    game.physics.arcade.collide(this.player, this.layer);
+
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
 
     this.checkXMovement();
     this.checkYMomvment();
+    this.checkSpaceBar();
 };
 
 mainConfig.prototype.render = function() {

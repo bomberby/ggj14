@@ -1,8 +1,10 @@
 mainConfig.prototype.checkXMovement = function() {
     if (this.shouldMoveLeft()) {
         this.player.body.acceleration.x = -this.ACCELERATION;
+        this.player.scale.x = 1;
     } else if (this.shouldMoveRight()) {
         this.player.body.acceleration.x = this.ACCELERATION;
+        this.player.scale.x = -1;
     } else {
         this.player.body.acceleration.x = 0;
         this.player.body.velocity.x = 0;
@@ -18,6 +20,26 @@ mainConfig.prototype.checkYMomvment = function() {
         this.player.body.acceleration.y = 0;
         this.player.body.velocity.y = 0;
     }   
+};
+
+mainConfig.prototype.checkSpaceBar = function() {
+    if (this.shouldSpaceBar()) {
+        if (this.hasText())
+        {
+            this.clearText();
+        }
+        else {
+            this.bubbleText("Booki is Primak in the BetShoeva");
+        }
+    }
+};
+
+mainConfig.prototype.shouldSpaceBar = function() {
+    var isActive = false;
+
+    isActive = this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
+
+    return isActive;
 };
 
 mainConfig.prototype.shouldMoveDown = function() {
