@@ -1,99 +1,140 @@
-/**
- *
- * This is a simple state template to use for getting a Phaser game up
- * and running quickly. Simply add your own game logic to the default
- * state object or delete it and make your own.
- *
- */
-var game
+var game = new Phaser.Game(400, 490, Phaser.AUTO, 'gameDiv');
 
-var map
-var layer
+// Create our 'main' state that will contain the game
+var mainState = {
 
-var keys = {}
+    preload: function() { 
+        // This function will be executed at the beginning     
+        // That's where we load the game's assets
 
-var player
-var playerVelocity = 250
+        // Change the background color of the game
+        game.stage.backgroundColor = '#71c5cf';
 
-var state = {
+        // Load the player sprite
+        //game.load.image('player', 'assets/gfx/player.png');   
 
-    init: function() {
-        // Delete this init block or replace with your own logic.
-
-        // Create simple text display for current Phaser version
-         //var text = "Phaser Version "+Phaser.VERSION + " works!";
-         //var style = { font: "24px Arial", fill: "#fff", align: "center" };
-         //var t = game.add.text(this.world.centerX, this.world.centerY, text, style);
-         //t.anchor.setTo(0.5, 0.5);
-        
+        game.load.spritesheet("player", "/assets/gfx/character.gif", 32, 32);
     },
-    preload: function() {
-        // STate preload logic goes here
-        game.load.tilemap('caveMap', 'assets/maps/cave.json', null, Phaser.Tilemap.TILED_JSON)
-        game.load.image('caveTiles', 'assets/sprites/cave.png')
-        game.load.spritesheet('player', 'assets/sprites/player.png', 32, 48)        
+
+    create: function() { 
+        // This function is called after the preload function     
+        // Here we set up the game, display sprites, etc.  
+
+        // Define movement constants
+        this.MAX_SPEED = 500; // pixels/second
+        this.ACCELERATION = 1500; // pixels/second/second
+
+        // Set the physics system
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        // Create a player sprite
+        this.player = game.add.sprite(game.width/2, game.height/2, 'player');
+
+        // Add physics to the player
+        game.physics.arcade.enable(this.player);
+
+        // Make player collide with world boundaries so he doesn't leave the stage
+        this.player.body.collideWorldBounds = true;
+
+        // Set player maximum movement speed
+        this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
+
+        // Capture certain keys to prevent their default actions in the browser.
+        // This is only necessary because this is an HTML5 game. Games on other
+        // platforms may not need code like this.
+        this.game.input.keyboard.addKeyCapture([
+            Phaser.Keyboard.LEFT,
+            Phaser.Keyboard.RIGHT,
+            Phaser.Keyboard.UP,
+            Phaser.Keyboard.DOWN
+        ]);
+        },
+
+        update: function() {
+            // This function is called 60 times per second    
+            // It contains the game's logic 
+
+            // Collide the player with the ground
+            // game.physics.arcade.collide(this.player, this.ground);
+
+            this.player.body.velocity.x = 0;
+            this.player.body.velocity.y = 0;
+
+            if (this.shouldMoveLeft()) {
+                // If the LEFT key is down, set the player velocity to move left
+                this.player.body.acceleration.x = -this.ACCELERATION;
+            } else if (this.shouldMoveRight()) {
+                // If the RIGHT key is down, set the player velocity to move right
+                this.player.body.acceleration.x = this.ACCELERATION;
+            } else {
+                // Stop the player from moving horizontally
+                this.player.body.acceleration.x = 0;
+                this.player.body.velocity.x = 0;
+            }
+
+            if (this.shouldMoveUp()) {
+                // If the LEFT key is down, set the player velocity to move left
+                this.player.body.acceleration.y = -this.ACCELERATION;
+            } else if (this.shouldMoveDown()) {
+                // If the RIGHT key is down, set the player velocity to move right
+                this.player.body.acceleration.y = this.ACCELERATION;
+            } else {
+                // Stop the player from moving horizontally
+                this.player.body.acceleration.y = 0;
+                this.player.body.velocity.y = 0;
+            }   
+
+            // If the player is out of the world (too high or too low), call the 'restartGame' function
+            if (this.player.inWorld == false)
+                this.restartGame();  
+        },
+
+    shouldMoveUp: function() {
+        var isActive = false;
+
+        isActive = this.input.keyboard.isDown(Phaser.Keyboard.UP);
+        isActive |= (game.input.activePointer.isDown &&
+            game.input.activePointer.y < game.height/4);
+
+        return isActive;
     },
-    create: function(){
-      // State create logic goes here
-        map = game.add.tilemap('caveMap')
-        map.addTilesetImage('cave', 'caveTiles')
-        map.setCollisionBetween(1, 8); // wall tiles
-        layer = map.createLayer('Cave');
-        layer.debug = true
 
-        // player
-        player = game.add.sprite(game.world.width / 2 - 16, game.world.height / 2 + 64, 'player')
+    shouldMoveDown: function() {
+        var isActive = false;
 
-        // controls
-        keys.w = game.input.keyboard.addKey(Phaser.Keyboard.W);
-        keys.a = game.input.keyboard.addKey(Phaser.Keyboard.A);
-        keys.s = game.input.keyboard.addKey(Phaser.Keyboard.S);
-        keys.d = game.input.keyboard.addKey(Phaser.Keyboard.D);
-        keys.space = game.input.keyboard.addKey(Phaser.Keyboard.Space);
+        isActive = this.input.keyboard.isDown(Phaser.Keyboard.DOWN);
+        isActive |= (game.input.activePointer.isDown &&
+            game.input.activePointer.y < game.height*4);
 
-
+        return isActive;
     },
-    update: function() {
-        // State Update Logic goes here.
 
-        game.physics.collide(player, layer)
+    shouldMoveLeft: function() {
+        var isActive = false;
 
-        // reset player velocity
-        player.body.velocity.x = 0
-        player.body.velocity.y = 0
+        isActive = this.input.keyboard.isDown(Phaser.Keyboard.LEFT);
+        isActive |= (game.input.activePointer.isDown &&
+            game.input.activePointer.x < game.width/4);
 
-        // player movement
+        return isActive;
+    },
 
-        if (keys.w.isDown) {
-            if(player.body.blocked.up === true)
-              player.body.velocity.y = -playerVelocity
-        } else if (keys.s.isDown) {
-            if(player.body.blocked.down === true)
-              player.body.velocity.y = playerVelocity
-        }
+    shouldMoveRight: function() {
+        var isActive = false;
 
-        if (keys.a.isDown) {
-          if(player.body.blocked.left === true)
-            player.body.velocity.x = -playerVelocity
-        } else if (keys.d.isDown) {
-          if(player.body.blocked.right === true)
-            player.body.velocity.x = playerVelocity
-        }
-        if (keys.space.isDown) {
-          if (!player.animation_lock)
-          {
-            player.animation_lock = true;
-            //TODO:attack logic
-          }
+        isActive = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
+        isActive |= (game.input.activePointer.isDown &&
+            game.input.activePointer.x > game.width/2 + game.width/4);
 
-        }
-    }
+        return isActive;
+    },
+
+    // Restart the game
+    restartGame: function() {  
+        // Start the 'main' state, which restarts the game
+        game.state.start('main');
+    },
 };
 
-var game = new Phaser.Game(
-    800,
-    480,
-    Phaser.AUTO,
-    'game',
-    state
-);
+game.state.add('main', mainState);  
+game.state.start('main'); 
