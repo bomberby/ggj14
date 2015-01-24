@@ -2,6 +2,9 @@ var canAttack = true;
 var lastPosition = 'left';
 
 mainConfig.prototype.checkSpaceBar = function() {
+    //todo space is dependant of state in it's own phase
+    if (gamePhase == 0)
+        this.nextState();
     if (this.hasText())
     {
         this.clearText();
