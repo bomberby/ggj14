@@ -1,20 +1,11 @@
 var canAttack = true;
 
 mainConfig.prototype.checkSpaceBar = function() {
-    if(this.attackButton.isDown && this.dpad.left.isDown){
-        if (this.hasText())
-        {
-            this.clearText();
-        }
-        else {
-            if(canAttack){
-                this.player.animations.play('attack');
-                canAttack = false;
-                game.time.events.add(300, (function() {
-                    canAttack = true;
-                }), this);
-            }
-        }
+    if (this.hasText())
+    {
+        this.clearText();
+    }
+    else {
     }
 };
 

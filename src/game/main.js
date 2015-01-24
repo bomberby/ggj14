@@ -88,13 +88,20 @@ mainConfig.prototype.create = function() {
         Phaser.Keyboard.RIGHT,
         Phaser.Keyboard.UP,
         Phaser.Keyboard.DOWN,
-        Phaser.Keyboard.SPACE
+        Phaser.Keyboard.SPACEBAR
     ]);
 
     this.dpad = this.game.input.keyboard.createCursorKeys();
     this.attackButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    this.bubbleText("Example Text");
+    parent = this;
+    game.input.keyboard.onUpCallback = function( e ){
+            if(e.keyCode == Phaser.Keyboard.SPACEBAR){
+                parent.checkSpaceBar();
+            }
+        };
+
+    this.nextText();
 };
 
 // This function is called 60 times per second    
@@ -108,7 +115,7 @@ mainConfig.prototype.update = function() {
 
     this.checkXMovement();
     this.checkYMomvment();
-    this.checkSpaceBar();
+    //this.checkSpaceBar();
 };
 
 mainConfig.prototype.render = function() {
