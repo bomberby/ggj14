@@ -1,11 +1,19 @@
+var canAttack = true;
+
 mainConfig.prototype.checkSpaceBar = function() {
-    if (this.isSpaceBarActive()) {
+    if(this.attackButton.isDown && this.dpad.left.isDown){
         if (this.hasText())
         {
             this.clearText();
         }
         else {
-            // this.bubbleText("Booki is Primak in the BetShoeva");
+            if(canAttack){
+                this.player.animations.play('attack');
+                canAttack = false;
+                game.time.events.add(300, (function() {
+                    canAttack = true;
+                }), this);
+            }
         }
     }
 };
@@ -30,14 +38,6 @@ mainConfig.prototype.checkYMomvment = function() {
     }   
 };
 
-mainConfig.prototype.isSpaceBarActive = function() {
-    var isActive = false;
-
-    isActive = this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
-
-    return isActive;
-};
-
 mainConfig.prototype.moveDown = function() {
     this.player.body.acceleration.y = this.ACCELERATION;
 };
@@ -60,7 +60,7 @@ mainConfig.prototype.moveUp = function() {
 mainConfig.prototype.shouldMoveDown = function() {
     var shouldMove = false;
 
-    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.DOWN);
+    shouldMove = this.dpad.down.isDown;
     shouldMove |= (game.input.activePointer.isDown &&
         game.input.activePointer.y < game.height*4);
 
@@ -70,7 +70,7 @@ mainConfig.prototype.shouldMoveDown = function() {
 mainConfig.prototype.shouldMoveLeft = function() {
     var shouldMove = false;
 
-    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.LEFT);
+    shouldMove = this.dpad.left.isDown;
     shouldMove |= (game.input.activePointer.isDown &&
         game.input.activePointer.x < game.width/4);
 
@@ -80,7 +80,7 @@ mainConfig.prototype.shouldMoveLeft = function() {
 mainConfig.prototype.shouldMoveRight = function() {
     var shouldMove = false;
 
-    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
+    shouldMove = this.dpad.right.isDown;
     shouldMove |= (game.input.activePointer.isDown &&
         game.input.activePointer.x > game.width/2 + game.width/4);
 
@@ -90,7 +90,7 @@ mainConfig.prototype.shouldMoveRight = function() {
 mainConfig.prototype.shouldMoveUp = function() {
     var shouldMove = false;
 
-    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.UP);
+    shouldMove = this.dpad.up.isDown;
     shouldMove |= (game.input.activePointer.isDown &&
         game.input.activePointer.y < game.height/4);
 

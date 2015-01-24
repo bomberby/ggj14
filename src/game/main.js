@@ -78,6 +78,7 @@ mainConfig.prototype.create = function() {
 
     this.player.animations.add('left', [2, 3], 10, true);
     this.player.animations.add('right', [4, 5], 10, true);
+    this.player.animations.add('attack', [7, 6], 10, true);
 
     // Capture certain keys to prevent their default actions in the browser.
     // This is only necessary because this is an HTML5 game. Games on other
@@ -89,6 +90,9 @@ mainConfig.prototype.create = function() {
         Phaser.Keyboard.DOWN,
         Phaser.Keyboard.SPACE
     ]);
+
+    this.dpad = this.game.input.keyboard.createCursorKeys();
+    this.attackButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     this.bubbleText("Example Text");
 };
