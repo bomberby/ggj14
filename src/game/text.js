@@ -1,6 +1,5 @@
 var width = 0;
 var height = 170;
-
 mainConfig.prototype.bubbleText = function(text) {
   if (!this.hasText())
   {
@@ -23,7 +22,8 @@ mainConfig.prototype.clearText = function() {
 
     this.textholder.spr_bg.destroy();
     this.textholder.spr_bg = undefined;
-    this.textnumber += 1;
+    this.textnum += 1;
+    this.nextText();
   }
 };
  
@@ -31,17 +31,16 @@ mainConfig.prototype.hasText = function() {
   return (typeof(this.textholder.text)!='undefined');
 };
 
-mainConfig.prototype.textholder = function() {
-
-};
+mainConfig.prototype.textholder = [];
 
 mainConfig.prototype.nextText = function() {
   if (this.hasText())
     return
-  this.bubbleText(this.plot[this.textnum]);
+  if (this.plot[this.textnum])
+    this.bubbleText(this.plot[this.textnum]);
 
 }
 mainConfig.prototype.textnum = 0;
-mainConfig.prototype.plot = ['bla','primak is indra',null,'no text after?',null]
+mainConfig.prototype.plot = ['bla','primak is indra','another text',null,'no text after?',null]
 //todo: gamestate
 //todo: move to next text

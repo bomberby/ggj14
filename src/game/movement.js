@@ -1,12 +1,10 @@
 mainConfig.prototype.checkSpaceBar = function() {
-    if (this.isSpaceBarActive()) {
-        if (this.hasText())
-        {
-            this.clearText();
-        }
-        else {
-            // this.bubbleText("Booki is Primak in the BetShoeva");
-        }
+    if (this.hasText())
+    {
+        this.clearText();
+    }
+    else {
+        // this.bubbleText("Booki is Primak in the BetShoeva");
     }
 };
 
@@ -28,14 +26,6 @@ mainConfig.prototype.checkYMomvment = function() {
     } else {
         this.stopYMovement();
     }   
-};
-
-mainConfig.prototype.isSpaceBarActive = function() {
-    var isActive = false;
-
-    isActive = this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
-
-    return isActive;
 };
 
 mainConfig.prototype.moveDown = function() {
