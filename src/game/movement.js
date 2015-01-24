@@ -1,17 +1,28 @@
 var canAttack = true;
 var lastPosition = 'left';
 
+mainConfig.prototype.checkOverlap = function(obstacle) {
+    debugger
+    var boundsA = this.player.getBounds();
+    var boundsB = obstacle.getBounds();
+
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+};
+
 mainConfig.prototype.checkSpaceBar = function() {
     //todo space is dependant of state in it's own phase
     if (gamePhase == 0)
+    {
         this.nextState();
+    };
+
     if (this.hasText())
     {
         this.clearText();
         this.handleAnimations(false);
     }
     else {
-        if(canAttack){
+        if(canAttack) {
             this.handleAnimations(true);
             
             canAttack = false;
@@ -42,53 +53,48 @@ mainConfig.prototype.checkYMomvment = function() {
     }   
 };
 
-mainConfig.prototype.handleAnimations = function(direction, attack) {
+mainConfig.prototype.handleAnimations = function(attack) {
     if (attack == false) {
         this.playerAttack.visible = false;
         this.playerAttack.render = false;
-    } else {
+    } else if (attack == true) {
         this.playerAttack.visible = true;
         this.playerAttack.render = true;
 
         if (lastPosition == 'left') {
-            this.player.frame =  7;
+            this.player.frame = 7;
             this.playerAttack.frame = 6;
-        } else {
-            this.player.frame = 8;
-            this.playerAttack.frame = 9;
+        } else if (lastPosition == 'right') {
+            this.player.frame = 11;
+            this.playerAttack.frame = 12;
         };
-    };
-    
-    if (direction != 'stop') {
-        debugger
-        this.player.animations.play(direction);
-    } else {
-        this.player.animations.stop();
     };
 };
 
 mainConfig.prototype.moveDown = function() {
     this.player.body.acceleration.y = this.ACCELERATION;
+    this.handleAnimations(false);
 };
 
 mainConfig.prototype.moveLeft = function() {
     this.player.body.acceleration.x = -this.ACCELERATION;
 
     this.player.scale.x = 1;
-    this.handleAnimations('left', false);
-
     lastPosition = 'left';
+    this.player.animations.play(lastPosition);
+    this.handleAnimations(false);
 };
 
 mainConfig.prototype.moveRight = function() {
     this.player.body.acceleration.x = this.ACCELERATION;
-
-    this.handleAnimations('right', false);
     lastPosition = 'right';
+    this.player.animations.play(lastPosition);
+    this.handleAnimations(false);
 };
 
 mainConfig.prototype.moveUp = function() {
     this.player.body.acceleration.y = -this.ACCELERATION;
+    this.handleAnimations(false);
 };
 
 mainConfig.prototype.shouldMoveDown = function() {
@@ -131,10 +137,15 @@ mainConfig.prototype.shouldMoveUp = function() {
     return shouldMove;
 };
 
+mainConfig.prototype.stopPlayer = function() {
+    this.stopXMovement();
+    this.stopYMovement();
+};
+
 mainConfig.prototype.stopXMovement = function() {
     this.player.body.acceleration.x = 0;
     this.player.body.velocity.x = 0;
-    this.handleAnimations('stop', false);
+    this.player.animations.stop();
 };
 
 mainConfig.prototype.stopYMovement = function() {

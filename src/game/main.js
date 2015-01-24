@@ -15,8 +15,9 @@ mainConfig.prototype.preload = function() {
 
     game.load.tilemap('map', 'assets/gfx/tiles/Overworld.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTiles.png');
-    
+
     game.load.spritesheet("player", "/assets/gfx/sprites/All.png", 64, 64);
+    game.load.spritesheet("girl", "/assets/gfx/sprites/Girl.png", 64, 64);
 };
 
 // This function is called after the preload function     
@@ -28,8 +29,8 @@ mainConfig.prototype.create = function() {
     this.ACCELERATION = 12500; // pixels/second/second
 
     // Set the physics system
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    
+    game.physics.startSystem(Phaser.Physics.Arcade);
+
     // Capture certain keys to prevent their default actions in the browser.
     // This is only necessary because this is an HTML5 game. Games on other
     // platforms may not need code like this.

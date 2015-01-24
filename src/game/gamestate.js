@@ -19,17 +19,20 @@ mainConfig.prototype.nextState = function(){
 		    this.layer.resizeWorld();
 
 		    // Create a player sprite
-		    this.player = game.add.sprite(game.width/2 -40, game.height/2 - 60, 'player');
+		    this.player = game.add.sprite(game.width/2 - 40, game.height/2 - 60, 'player');
 		    this.player.anchor.setTo(.5, .5);
 
 		    this.playerAttack = game.add.sprite(this.player.position.x - 16, this.player.position.y, 'player');
 		    this.playerAttack.anchor.setTo(.5, .5);
-		    this.playerAttack.visible = false;
-		    this.playerAttack.renderable = false;
-		    
+
+		    //Add Villagers
+		    this.girl = game.add.sprite(800, 660, 'girl');
+		    this.girl.anchor.setTo(.5, .5);
+
 		    // Add physics to the player
 		    game.physics.arcade.enable(this.player);
 		    game.physics.arcade.enable(this.playerAttack);
+			game.physics.arcade.enable(this.girl);
 
 		    // Make player collide with world boundaries so he doesn't leave the stage
 		    this.player.body.collideWorldBounds = true;
@@ -40,6 +43,8 @@ mainConfig.prototype.nextState = function(){
 
 		    this.player.animations.add('left', [2, 3], 10, true);
 		    this.player.animations.add('right', [4, 5], 10, true);
+		    this.playerAttack.animations.add('attack', [8], 10, true);
+		    // this.girl.animation.add('girl_speak', [0, 1], 10, true);
 
 		    this.nextText();
 		    break;
@@ -58,9 +63,9 @@ mainConfig.prototype.stateUpdate = function(){
 		    this.player.body.velocity.y = 0;
 
 		    if (lastPosition == 'right') {
-		        this.playerAttack.position.x = this.player.position.x + 16;
+		        this.playerAttack.position.x = this.player.position.x + 64;
 		    } else {
-		        this.playerAttack.position.x = this.player.position.x - 16;
+		        this.playerAttack.position.x = this.player.position.x - 64;
 		    };
 
 		    this.playerAttack.position.y = this.player.position.y;
