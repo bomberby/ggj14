@@ -140,11 +140,16 @@ mainConfig.prototype.stateUpdate = function(){
 		    //this.checkYMomvment();
 		    break;
 		case 2:	
+		 	this.player.body.velocity.x = 0;
+		    this.player.body.velocity.y = 0;
+		    this.player.body.position.x = 461;
+		    this.player.body.position.y = 313;
 			if (this.spr_bg.alpha>0)
 			  this.spr_bg.alpha -= 0.005
 			else
   		 		this.spr_bg.destroy();
   		 	break;
+
 		case 3:  // phase 3 - forest view
 		    game.physics.arcade.collide(this.player, this.layer);
 
