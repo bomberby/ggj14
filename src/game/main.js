@@ -107,15 +107,7 @@ mainConfig.prototype.create = function() {
 // This function is called 60 times per second    
 // It contains the game's logic 
 mainConfig.prototype.update = function() {
-
-    game.physics.arcade.collide(this.player, this.layer);
-
-    this.player.body.velocity.x = 0;
-    this.player.body.velocity.y = 0;
-
-    this.checkXMovement();
-    this.checkYMomvment();
-    //this.checkSpaceBar();
+  this.stateUpdate()
 };
 
 mainConfig.prototype.render = function() {
