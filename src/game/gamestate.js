@@ -19,7 +19,7 @@ mainConfig.prototype.nextState = function(){
 		    this.layer.resizeWorld();
 
 		    // Create a player sprite
-		    this.player = game.add.sprite(game.width/2 - 9, game.height/2 - 16, 'player');
+		    this.player = game.add.sprite(game.width/2 -40, game.height/2 - 60, 'player');
 		    this.player.anchor.setTo(.5, .5);
 
 		    this.playerAttack = game.add.sprite(this.player.position.x - 16, this.player.position.y, 'player');
@@ -44,7 +44,8 @@ mainConfig.prototype.nextState = function(){
 		    this.nextText();
 		    break;
 	}
-}
+};
+
 mainConfig.prototype.stateUpdate = function(){
 	switch(gamePhase)
 	{
@@ -68,4 +69,4 @@ mainConfig.prototype.stateUpdate = function(){
 		    this.checkYMomvment();
 		    break;
 	}
-}
+};

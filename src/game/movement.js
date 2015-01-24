@@ -60,6 +60,7 @@ mainConfig.prototype.handleAnimations = function(direction, attack) {
     };
     
     if (direction != 'stop') {
+        debugger
         this.player.animations.play(direction);
     } else {
         this.player.animations.stop();
@@ -74,7 +75,7 @@ mainConfig.prototype.moveLeft = function() {
     this.player.body.acceleration.x = -this.ACCELERATION;
 
     this.player.scale.x = 1;
-    this.handleAnimations(false, 'left');
+    this.handleAnimations('left', false);
 
     lastPosition = 'left';
 };
@@ -82,7 +83,7 @@ mainConfig.prototype.moveLeft = function() {
 mainConfig.prototype.moveRight = function() {
     this.player.body.acceleration.x = this.ACCELERATION;
 
-    this.handleAnimations(false, 'right');
+    this.handleAnimations('right', false);
     lastPosition = 'right';
 };
 
@@ -133,7 +134,7 @@ mainConfig.prototype.shouldMoveUp = function() {
 mainConfig.prototype.stopXMovement = function() {
     this.player.body.acceleration.x = 0;
     this.player.body.velocity.x = 0;
-    this.handleAnimations(false, 'stop');
+    this.handleAnimations('stop', false);
 };
 
 mainConfig.prototype.stopYMovement = function() {

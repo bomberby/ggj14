@@ -1,5 +1,5 @@
 var width = 0;
-var height = 170;
+var height = 630;
 
 function wordsubstr(txt){
   var re = txt.match(/^.{0,25}[\S]*/);
@@ -22,13 +22,13 @@ mainConfig.prototype.bubbleText = function(text) {
     var cuttext;
     while (text.length > 0)
     {
-      cuttext = wordsubstr(text,20);
-      textarr[textarr.length] = game.add.text(width + 10, height, cuttext, { font: "20px Arial", fill: "#ffffff", align: "center" });
+      cuttext = wordsubstr(text, 80);
+      textarr[textarr.length] = game.add.text(width + 40, height, cuttext, { font: "80px Arial", fill: "#ffffff", align: "center" });
       text = text.substr(cuttext.length+1);
-      height += 20;
+      height += 80;
     }
     this.textholder.text = textarr;
-    height = 170;
+    height = 630;
   }
 };
 
