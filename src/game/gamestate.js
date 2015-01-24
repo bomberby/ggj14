@@ -82,7 +82,7 @@ mainConfig.prototype.nextState = function(){
 		    this.playerAttack.anchor.setTo(.5, .5);
 
 		    //Add Villagers
-		    this.girl = game.add.sprite(800, 660, 'girl');
+ 			this.girl = game.add.sprite(225, 380, 'girl');
 		    this.girl.anchor.setTo(.5, .5);
 
 		    // Add physics to the player
@@ -204,8 +204,24 @@ mainConfig.prototype.nextSubState = function(){
 		case 2:
 			this.nextState();break;
 		case 3:
+			if (gameSubPhase == 1)
+				this.girl.destroy();
+				//this.girl = game.add.sprite(800, 660, 'girl');
+				this.rat1 = game.add.sprite(430, 440, 'rat');
+				this.rat2 = game.add.sprite(430, 403, 'rat');
+				this.rat3 = game.add.sprite(430, 370, 'rat');
+				this.rat4 = game.add.sprite(493, 440, 'rat');
+				this.rat5 = game.add.sprite(493, 403, 'rat');
+				this.rat6 = game.add.sprite(493, 370, 'rat');
+				//pop rats
 			if (gameSubPhase == 2)
-			{	
+			{	//kill rats
+				this.rat1.frame = 2;
+				this.rat2.frame = 2;
+				this.rat3.frame = 2;
+				this.rat4.frame = 2;
+				this.rat5.frame = 2;
+				this.rat6.frame = 2;				
 				this.spr_bg = this.game.add.graphics(0, 0);
 		        this.spr_bg.beginFill(0xFF3300, 1);
 		        this.spr_bg.drawRect(0, 0, this.game.width, this.game.height);

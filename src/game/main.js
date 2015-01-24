@@ -21,6 +21,7 @@ mainConfig.prototype.preload = function() {
 
     game.load.spritesheet("player", "/assets/gfx/sprites/All.png", 64, 64);
     game.load.spritesheet("girl", "/assets/gfx/sprites/Girl.png", 64, 64);
+    game.load.spritesheet("rat", "/assets/gfx/sprites/RAT.png", 64, 64);
     game.load.spritesheet("opening", "/assets/gfx/opening.jpg", 1811, 1280);
 };
 

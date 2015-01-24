@@ -78,5 +78,6 @@ mainConfig.prototype.plot = [
   null,
   'Villager:Save me! these MICE!',
   'Hero: No worries!',
-  null
+  null,
+  'Hero: well... that was too easy...'
 ]
