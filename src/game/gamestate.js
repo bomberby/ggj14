@@ -51,6 +51,7 @@ mainConfig.prototype.nextState = function(){
 		    this.nextText();
 		    break;
 	    case 2:
+	    	this.handleAnimations(false);
 		    this.spr_bg = this.game.add.graphics(0, 0);
 	        this.spr_bg.beginFill(this.fadeColor, 1);
 	        this.spr_bg.drawRect(0, 0, this.game.width, this.game.height);
@@ -62,6 +63,7 @@ mainConfig.prototype.nextState = function(){
 	    	this.nextText();
 	    	break;
 		case 3:  // phase 3 - forest view
+			this.handleAnimations(false);
 			this.map.destroy();
 		    this.map = game.add.tilemap('map');
 		    this.map.addTilesetImage('VillageOverworldTiles', 'tileset');
