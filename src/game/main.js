@@ -1,7 +1,7 @@
 var mainConfig = function(game) {
 };
 
-var game = new Phaser.Game(400, 490, Phaser.AUTO, 'gameDiv');
+var game = new Phaser.Game(400, 240, Phaser.AUTO, 'gameDiv');
 var pixel = { scale: 4, canvas: null, context: null, width: 0, height: 0 }
 
 var layer;
@@ -35,10 +35,11 @@ mainConfig.prototype.preload = function() {
 
     game.stage.backgroundColor = '#71c5cf';
 
-    game.load.tilemap('map', 'assets/gfx/tiles/TEST1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('map', 'assets/gfx/tiles/Overworld.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTiles.png');
+    game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTilesEx.png');
     
-    game.load.spritesheet("player", "/assets/gfx/sprites/Charcter_0001s_0001_Stand.png", 16, 16);
+    game.load.spritesheet("player", "/assets/gfx/sprites/All.png", 16, 16);
 };
 
 // This function is called after the preload function     
@@ -49,24 +50,23 @@ mainConfig.prototype.create = function() {
     this.MAX_SPEED = 3500; // pixels/second
     this.ACCELERATION = 3500; // pixels/second/second
 
-    
     // Set the physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.map = game.add.tilemap('map');
+    this.map.addTilesetImage('VillageOverworldTilesEx', 'tileset');
     this.map.addTilesetImage('VillageOverworldTiles', 'tileset');
 
     this.map.setCollisionBetween(5,6);
     this.map.setCollision(2);
 
-    //'Village 1' is the name of a layer inside of Tiled Map Editor
-    this.layer = this.map.createLayer('Tile Layer 1');
+    this.layer = this.map.createLayer('Overworld');
     this.layer.resizeWorld();
-    // this.layer.wrap = true;
 
     // Create a player sprite
     this.player = game.add.sprite(game.width/2, game.height/2, 'player');
     this.player.anchor.setTo(.5,.5);
+    
     // Add physics to the player
     game.physics.arcade.enable(this.player);
 
@@ -75,6 +75,9 @@ mainConfig.prototype.create = function() {
 
     // Set player maximum movement speed
     this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
+
+    this.player.animations.add('left', [2, 3], 10, true);
+    this.player.animations.add('right', [4, 5], 10, true);
 
     // Capture certain keys to prevent their default actions in the browser.
     // This is only necessary because this is an HTML5 game. Games on other

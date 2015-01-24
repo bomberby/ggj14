@@ -1,40 +1,36 @@
-mainConfig.prototype.checkXMovement = function() {
-    if (this.shouldMoveLeft()) {
-        this.player.body.acceleration.x = -this.ACCELERATION;
-        this.player.scale.x = 1;
-    } else if (this.shouldMoveRight()) {
-        this.player.body.acceleration.x = this.ACCELERATION;
-        this.player.scale.x = -1;
-    } else {
-        this.player.body.acceleration.x = 0;
-        this.player.body.velocity.x = 0;
-    }
-};
-
-mainConfig.prototype.checkYMomvment = function() {
-    if (this.shouldMoveUp()) {
-        this.player.body.acceleration.y = -this.ACCELERATION;
-    } else if (this.shouldMoveDown()) {
-        this.player.body.acceleration.y = this.ACCELERATION;
-    } else {
-        this.player.body.acceleration.y = 0;
-        this.player.body.velocity.y = 0;
-    }   
-};
-
 mainConfig.prototype.checkSpaceBar = function() {
-    if (this.shouldSpaceBar()) {
+    if (this.isSpaceBarActive()) {
         if (this.hasText())
         {
             this.clearText();
         }
         else {
-            this.bubbleText("Booki is Primak in the BetShoeva");
+            // this.bubbleText("Booki is Primak in the BetShoeva");
         }
     }
 };
 
-mainConfig.prototype.shouldSpaceBar = function() {
+mainConfig.prototype.checkXMovement = function() {
+    if (this.shouldMoveLeft()) {
+        this.moveLeft();
+    } else if (this.shouldMoveRight()) {
+        this.moveRight();
+    } else {
+        this.stopXMovement();
+    }
+};
+
+mainConfig.prototype.checkYMomvment = function() {
+    if (this.shouldMoveUp()) {
+        this.moveUp();
+    } else if (this.shouldMoveDown()) {
+        this.moveDown();
+    } else {
+        this.stopYMovement();
+    }   
+};
+
+mainConfig.prototype.isSpaceBarActive = function() {
     var isActive = false;
 
     isActive = this.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR);
@@ -42,42 +38,72 @@ mainConfig.prototype.shouldSpaceBar = function() {
     return isActive;
 };
 
-mainConfig.prototype.shouldMoveDown = function() {
-    var isActive = false;
+mainConfig.prototype.moveDown = function() {
+    this.player.body.acceleration.y = this.ACCELERATION;
+};
 
-    isActive = this.input.keyboard.isDown(Phaser.Keyboard.DOWN);
-    isActive |= (game.input.activePointer.isDown &&
+mainConfig.prototype.moveLeft = function() {
+    this.player.body.acceleration.x = -this.ACCELERATION;
+    this.player.scale.x = 1;
+    this.player.animations.play("left");
+};
+
+mainConfig.prototype.moveRight = function() {
+    this.player.body.acceleration.x = this.ACCELERATION;
+    this.player.animations.play("right");
+};
+
+mainConfig.prototype.moveUp = function() {
+    this.player.body.acceleration.y = -this.ACCELERATION;
+};
+
+mainConfig.prototype.shouldMoveDown = function() {
+    var shouldMove = false;
+
+    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.DOWN);
+    shouldMove |= (game.input.activePointer.isDown &&
         game.input.activePointer.y < game.height*4);
 
-    return isActive;
+    return shouldMove;
 };
 
 mainConfig.prototype.shouldMoveLeft = function() {
-    var isActive = false;
+    var shouldMove = false;
 
-    isActive = this.input.keyboard.isDown(Phaser.Keyboard.LEFT);
-    isActive |= (game.input.activePointer.isDown &&
+    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.LEFT);
+    shouldMove |= (game.input.activePointer.isDown &&
         game.input.activePointer.x < game.width/4);
 
-    return isActive;
-};
-
-mainConfig.prototype.shouldMoveUp = function() {
-    var isActive = false;
-
-    isActive = this.input.keyboard.isDown(Phaser.Keyboard.UP);
-    isActive |= (game.input.activePointer.isDown &&
-        game.input.activePointer.y < game.height/4);
-
-    return isActive;
+    return shouldMove;
 };
 
 mainConfig.prototype.shouldMoveRight = function() {
-    var isActive = false;
+    var shouldMove = false;
 
-    isActive = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
-    isActive |= (game.input.activePointer.isDown &&
+    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.RIGHT);
+    shouldMove |= (game.input.activePointer.isDown &&
         game.input.activePointer.x > game.width/2 + game.width/4);
 
-    return isActive;
+    return shouldMove;
+};
+
+mainConfig.prototype.shouldMoveUp = function() {
+    var shouldMove = false;
+
+    shouldMove = this.input.keyboard.isDown(Phaser.Keyboard.UP);
+    shouldMove |= (game.input.activePointer.isDown &&
+        game.input.activePointer.y < game.height/4);
+
+    return shouldMove;
+};
+
+mainConfig.prototype.stopXMovement = function() {
+    this.player.body.acceleration.x = 0;
+    this.player.body.velocity.x = 0;
+    this.player.animations.stop();
+};
+
+mainConfig.prototype.stopYMovement = function() {
+    this.player.body.acceleration.y = 0;
+    this.player.body.velocity.y = 0;
 };

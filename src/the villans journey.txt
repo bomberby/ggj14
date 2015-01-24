@@ -52,6 +52,46 @@ scene five:
  
  
  Act two:
+ scene one: 
+ at the castle, hero on the throne again
+ "okey, there has to be some great evil that is ruining something, SOMEWHERE!"
+ looks at newspaper headline that reads:" all monsters banished, reign of terror is over"
+ (small headline reads :"mice eating crops - necessary evil or force of good?")
+ hero throws newspaper
  
+ scene two:
+ at the field 
+ Hero:"ok, maybe if i'll just walk around for a bit i;ll find some worthwhile fight"
+ hero walks around field (player is free) and after a while catches a "random encounter" 
+ 1 rat, as the fight begins- the rat dies before the player gets to attack.
+ battle ends
+ Hero:"Arrghhh!!!"
+ hero runs to castle
  
+ scene three:
+ hero is at the castle, next to boss corpse
+ while hitting the boss corpse 
+ Hero:"why did you DIE so soon!"
+ Hero:"sub sub"
+ Hero:"what kind of monster is so weak, that someone like me can kill it so easily?"
+ hero throws his sword aside
+ hero grabs boss's sword and takes it with him
+ Hero: "I'll show you what a real villain can do! I WILL BE BETTER!!!"
+
+scene four:
+hero enters village
+hero laughs maniacally and charges at the nearest villager 
+Hero:"come at me! I need someone to challenge me!"
+villagers are killed all over the place
+hero notices the girl
+Hero:"oh, would you look at that!, such a small child"
+hero kills the girl's parents
+Hero:"everyone here is a waste of time, no one is a real challenge"
+hero talks to girl
+Hero:"run, child!, grow strong and avange your parents when you are ready!"
+girl runs away
+Hero(to himself):"that girl will challange me in time, and then I will have a proper battle at last!"
+hero walks slowly away from the dead village
+
+end second act
 
