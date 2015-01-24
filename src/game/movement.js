@@ -22,16 +22,13 @@ mainConfig.prototype.checkSpaceBar = function() {
         this.handleAnimations(false);
     }
     else {
-<<<<<<< HEAD
-        if(canAttack) {
-=======
         switch (gamePhase)
         {
             case 1: this.nextSubState();break;
             case 2: this.nextSubState();break;
         }
+
         if(canAttack){
->>>>>>> 86fa39977a62990e9e347696a9d23bb6a11c4b35
             this.handleAnimations(true);
             
             canAttack = false;
@@ -78,16 +75,6 @@ mainConfig.prototype.handleAnimations = function(attack) {
             this.playerAttack.frame = 12;
         };
     };
-<<<<<<< HEAD
-=======
-    
-    if (direction != 'stop') {
-        // debugger
-        this.player.animations.play(direction);
-    } else {
-        this.player.animations.stop();
-    };
->>>>>>> 86fa39977a62990e9e347696a9d23bb6a11c4b35
 };
 
 mainConfig.prototype.moveDown = function() {

@@ -75,11 +75,7 @@ mainConfig.prototype.nextState = function(){
 		    this.layer.resizeWorld();
 
 		    // Create a player sprite
-<<<<<<< HEAD
-		    this.player = game.add.sprite(game.width/2 - 40, game.height/2 - 60, 'player');
-=======
 		    this.player = game.add.sprite(224, 160, 'player');
->>>>>>> 86fa39977a62990e9e347696a9d23bb6a11c4b35
 		    this.player.anchor.setTo(.5, .5);
 
 		    this.playerAttack = game.add.sprite(this.player.position.x - 16, this.player.position.y, 'player');
