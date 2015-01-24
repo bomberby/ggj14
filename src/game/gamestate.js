@@ -102,7 +102,7 @@ mainConfig.prototype.nextState = function(){
 		    this.playerAttack.animations.add('attack', [8], 10, true);
 		    // this.girl.animation.add('girl_speak', [0, 1], 10, true);
 
-		    this.nextText();
+		    //this.nextText();
 		    break;
 	}
 };
@@ -144,6 +144,7 @@ mainConfig.prototype.stateUpdate = function(){
 			  this.spr_bg.alpha -= 0.005
 			else
   		 		this.spr_bg.destroy();
+  		 	break;
 		case 3:  // phase 3 - forest view
 		    game.physics.arcade.collide(this.player, this.layer);
 
@@ -160,6 +161,18 @@ mainConfig.prototype.stateUpdate = function(){
 
 		    this.checkXMovement();
 		    this.checkYMomvment();
+
+		    if (gameSubPhase == 0)
+		    	if (this.player.position.y > 350)
+					this.player.body.acceleration.y = 0;
+			if (gameSubPhase == 1)
+				if (this.player.position.x > 370)
+					this.player.body.acceleration.x = 0;
+		    if (gameSubPhase == 2)
+				if (this.spr_bg.alpha>0)
+			  		this.spr_bg.alpha -= 0.01
+		  		else
+		  		 	this.spr_bg.destroy();
 		    break;
 	}
 };
@@ -184,7 +197,20 @@ mainConfig.prototype.nextSubState = function(){
 				this.nextState();
 			break;
 		case 2:
-			this.nextState();
+			this.nextState();break;
+		case 3:
+			if (gameSubPhase == 2)
+			{	
+				this.spr_bg = this.game.add.graphics(0, 0);
+		        this.spr_bg.beginFill(0xFF3300, 1);
+		        this.spr_bg.drawRect(0, 0, this.game.width, this.game.height);
+		        this.spr_bg.alpha = 1;
+		        this.spr_bg.endFill();
+
+				this.nextText();
+			}
+
+			break;
 	}
 
 }

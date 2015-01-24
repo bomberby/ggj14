@@ -26,6 +26,20 @@ mainConfig.prototype.checkSpaceBar = function() {
         {
             case 1: this.nextSubState();break;
             case 2: this.nextSubState();break;
+            case 3:
+            if (gameSubPhase == 0)
+                if (this.player.position.y > 350)
+                {
+                    this.nextSubState();
+                    this.nextText();
+                }
+            if (gameSubPhase == 1)
+                if (this.player.position.x > 370)
+                {
+                    this.nextSubState();
+                    this.nextText();
+                }
+            break;
         }
 
         if(canAttack){

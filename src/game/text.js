@@ -73,7 +73,10 @@ mainConfig.prototype.plot = [
   '*the next weekend*',
   'Hero:"Life is GREAT"',
   'Hero:"guild bills paid, the big baddie is dead, and i\'ve got all the time and money that I could wish for"',
-  'Hero laughs and drinks beer from a metal mug',
+  'Hero: HAHA, cold throne and a cold bear.',
   'Hero:"so... what do I do now?"',
+  null,
+  'Villager:Save me! these MICE!',
+  'Hero: No worries!',
   null
 ]
