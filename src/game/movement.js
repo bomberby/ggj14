@@ -60,7 +60,7 @@ mainConfig.prototype.handleAnimations = function(direction, attack) {
     };
     
     if (direction != 'stop') {
-        debugger
+        // debugger
         this.player.animations.play(direction);
     } else {
         this.player.animations.stop();

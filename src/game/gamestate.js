@@ -1,10 +1,11 @@
-var gamePhase = 0 //one less than first phase
+var gamePhase = -1 //one less than first phase
 
 mainConfig.prototype.nextState = function(){
 	gamePhase +=1;
 		switch(gamePhase)
 	{
 		case 0:  // phase 0 -splash
+			this.opening = game.add.sprite(0, -260, 'opening');
 			break;
 		case 1:
 			this.map = game.add.tilemap('map1');
@@ -89,8 +90,27 @@ mainConfig.prototype.nextState = function(){
 mainConfig.prototype.stateUpdate = function(){
 	switch(gamePhase)
 	{
-		case 0:  // phase 0 -splash
+		case 0:  // phase 0 -splash 
+			if (this.opening.position.y <0)
+			this.opening.position.y += 1;
 			break;
+		case 1:
+			game.physics.arcade.collide(this.player, this.layer);
+
+		    this.player.body.velocity.x = 0;
+		    this.player.body.velocity.y = 0;
+
+		    if (lastPosition == 'right') {
+		        this.playerAttack.position.x = this.player.position.x + 16;
+		    } else {
+		        this.playerAttack.position.x = this.player.position.x - 16;
+		    };
+
+		    this.playerAttack.position.y = this.player.position.y;
+
+		    //this.checkXMovement();
+		    //this.checkYMomvment();
+		    break;			
 		case 2:  // phase 2 - forest view
 		    game.physics.arcade.collide(this.player, this.layer);
 

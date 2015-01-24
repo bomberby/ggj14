@@ -21,6 +21,8 @@ mainConfig.prototype.preload = function() {
     game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTiles.png');
     
     game.load.spritesheet("player", "/assets/gfx/sprites/All.png", 64, 64);
+
+    game.load.spritesheet("opening", "/assets/gfx/opening.jpg", 1811, 1280);
 };
 
 // This function is called after the preload function     
