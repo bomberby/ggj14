@@ -57,8 +57,8 @@ mainConfig.prototype.nextState = function(){
 	        this.spr_bg.alpha = 1;
 	        this.spr_bg.endFill();
 
-	        this.player.position.x -= 120;
-	        this.player.position.y -= 120;
+	        //this.player.position.x -= 120;
+	        //this.player.position.y -= 120;
 	    	this.nextText();
 	    	break;
 		case 3:  // phase 3 - forest view
@@ -111,9 +111,13 @@ mainConfig.prototype.stateUpdate = function(){
 			break;
 		case 1:
 			game.physics.arcade.collide(this.player, this.layer);
-
-		    this.player.body.velocity.x = 0;
-		    this.player.body.velocity.y = 0;
+			if (gameSubPhase == 2)
+				if (this.player.position.x > 511)
+			    	this.player.body.acceleration.x = -this.ACCELERATION/30;
+			    else if (this.player.position.y > 354){
+			    	this.player.body.velocity.x = 0;
+			    	this.player.body.acceleration.y = -this.ACCELERATION/50;}
+			    	else {this.player.body.acceleration.y = 0;this.nextState();}
 
 		    if (lastPosition == 'right') {
 		        this.playerAttack.position.x = this.player.position.x + 16;
@@ -171,7 +175,7 @@ mainConfig.prototype.nextSubState = function(){
 
 				this.nextText();
 			}
-			else
+			else if (gameSubPhase == 3)
 				this.nextState();
 			break;
 		case 2:
