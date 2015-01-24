@@ -37,7 +37,6 @@ mainConfig.prototype.preload = function() {
 
     game.load.tilemap('map', 'assets/gfx/tiles/Overworld.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTiles.png');
-    game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTilesEx.png');
     
     game.load.spritesheet("player", "/assets/gfx/sprites/All.png", 16, 16);
 };
@@ -54,7 +53,6 @@ mainConfig.prototype.create = function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.map = game.add.tilemap('map');
-    this.map.addTilesetImage('VillageOverworldTilesEx', 'tileset');
     this.map.addTilesetImage('VillageOverworldTiles', 'tileset');
 
     this.map.setCollisionBetween(5,6);
@@ -90,7 +88,7 @@ mainConfig.prototype.create = function() {
         Phaser.Keyboard.SPACE
     ]);
 
-    this.bubbleText("Primak");
+    this.bubbleText("Example Text");
 };
 
 // This function is called 60 times per second    
