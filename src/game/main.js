@@ -1,7 +1,7 @@
 var mainConfig = function(game) {
 };
 
-var game = new Phaser.Game(400, 240, Phaser.AUTO, 'gameDiv');
+var game = new Phaser.Game(320, 240, Phaser.AUTO, 'gameDiv');
 var pixel = { scale: 4, canvas: null, context: null, width: 0, height: 0 }
 
 var layer;
@@ -64,21 +64,27 @@ mainConfig.prototype.create = function() {
     this.layer.resizeWorld();
 
     // Create a player sprite
-    this.player = game.add.sprite(game.width/2, game.height/2, 'player');
-    this.player.anchor.setTo(.5,.5);
+    this.player = game.add.sprite(game.width/2 - 9, game.height/2 - 16, 'player');
+    this.player.anchor.setTo(.5, .5);
+
+    this.playerAttack = game.add.sprite(this.player.position.x - 16, this.player.position.y, 'player');
+    this.playerAttack.anchor.setTo(.5, .5);
+    this.playerAttack.visible = false;
+    this.playerAttack.renderable = true;
     
     // Add physics to the player
     game.physics.arcade.enable(this.player);
+    game.physics.arcade.enable(this.playerAttack);
 
     // Make player collide with world boundaries so he doesn't leave the stage
     this.player.body.collideWorldBounds = true;
 
     // Set player maximum movement speed
     this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
+    this.playerAttack.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
 
     this.player.animations.add('left', [2, 3], 10, true);
     this.player.animations.add('right', [4, 5], 10, true);
-    this.player.animations.add('attack', [7, 6], 10, true);
 
     // Capture certain keys to prevent their default actions in the browser.
     // This is only necessary because this is an HTML5 game. Games on other
@@ -113,9 +119,16 @@ mainConfig.prototype.update = function() {
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
 
+    if (lastPosition == 'right') {
+        this.playerAttack.position.x = this.player.position.x + 16;
+    } else {
+        this.playerAttack.position.x = this.player.position.x - 16;
+    };
+
+    this.playerAttack.position.y = this.player.position.y;
+
     this.checkXMovement();
     this.checkYMomvment();
-    //this.checkSpaceBar();
 };
 
 mainConfig.prototype.render = function() {
