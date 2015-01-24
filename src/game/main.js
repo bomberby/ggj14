@@ -70,7 +70,7 @@ mainConfig.prototype.create = function() {
     this.playerAttack = game.add.sprite(this.player.position.x - 16, this.player.position.y, 'player');
     this.playerAttack.anchor.setTo(.5, .5);
     this.playerAttack.visible = false;
-    this.playerAttack.renderable = true;
+    this.playerAttack.renderable = false;
     
     // Add physics to the player
     game.physics.arcade.enable(this.player);
