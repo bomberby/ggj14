@@ -35,9 +35,13 @@ mainConfig.prototype.preload = function() {
 
     game.stage.backgroundColor = '#71c5cf';
 
+    game.load.tilemap('map1', 'assets/gfx/tiles/Throne_Room.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tileset1', 'assets/gfx/tiles/CastleTiles.png');
+
+
     game.load.tilemap('map', 'assets/gfx/tiles/Overworld.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTiles.png');
-    
+
     game.load.spritesheet("player", "/assets/gfx/sprites/All.png", 16, 16);
 };
 
