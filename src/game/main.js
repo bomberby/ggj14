@@ -1,7 +1,7 @@
 var mainConfig = function(game) {
 };
 
-var game = new Phaser.Game(400, 240, Phaser.AUTO, 'gameDiv');
+var game = new Phaser.Game(320, 240, Phaser.AUTO, 'gameDiv');
 var pixel = { scale: 4, canvas: null, context: null, width: 0, height: 0 }
 
 var layer;
@@ -51,7 +51,6 @@ mainConfig.prototype.create = function() {
 
     // Set the physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-
     // Capture certain keys to prevent their default actions in the browser.
     // This is only necessary because this is an HTML5 game. Games on other
     // platforms may not need code like this.
