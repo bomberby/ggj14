@@ -13,11 +13,20 @@ mainConfig.prototype.preload = function() {
 
     game.stage.backgroundColor = '#71c5cf';
 
+    game.load.tilemap('map1', 'assets/gfx/tiles/Throne_Room.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tileset1', 'assets/gfx/tiles/CastleTiles.png');
+
+
     game.load.tilemap('map', 'assets/gfx/tiles/Overworld.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tileset', 'assets/gfx/tiles/VillageOverworldTiles.png');
 
     game.load.spritesheet("player", "/assets/gfx/sprites/All.png", 64, 64);
+<<<<<<< HEAD
     game.load.spritesheet("girl", "/assets/gfx/sprites/Girl.png", 64, 64);
+=======
+
+    game.load.spritesheet("opening", "/assets/gfx/opening.jpg", 1811, 1280);
+>>>>>>> 86fa39977a62990e9e347696a9d23bb6a11c4b35
 };
 
 // This function is called after the preload function     
