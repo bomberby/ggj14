@@ -9,8 +9,9 @@ mainConfig.prototype.bubbleText = function(text) {
     spr_bg.drawRect(width, height, this.game.width, this.game.height);
     spr_bg.alpha = 0.6;
     spr_bg.endFill();
+    
     this.textholder.spr_bg = spr_bg
-    this.textholder.text = game.add.text(width, height, text, { font: "40px Arial", fill: "#ffffff", align: "center" });
+    this.textholder.text = game.add.text(width, height, text, { font: "20px Arial", fill: "#ffffff", align: "center" });
   }
 };
 

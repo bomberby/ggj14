@@ -55,8 +55,10 @@ mainConfig.prototype.create = function() {
     this.map = game.add.tilemap('map');
     this.map.addTilesetImage('VillageOverworldTiles', 'tileset');
 
-    this.map.setCollisionBetween(5,6);
     this.map.setCollision(2);
+    this.map.setCollision(8);
+    this.map.setCollisionBetween(4,6);
+    this.map.setCollisionBetween(21,36);
 
     this.layer = this.map.createLayer('Overworld');
     this.layer.resizeWorld();
