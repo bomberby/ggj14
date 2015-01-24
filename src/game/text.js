@@ -58,7 +58,8 @@ mainConfig.prototype.nextText = function() {
     return
   if (this.plot[this.textnum])
     this.bubbleText(this.plot[this.textnum]);
-
+  else
+    this.textnum += 1;
 }
 
 mainConfig.prototype.textnum = 0;
@@ -66,5 +67,13 @@ mainConfig.prototype.plot = [
   'Boss: so, it has come to this! you have finally seeked me out',
   'Hero: you Will pay for all that you\'ve done',
   'Boss: oh, we\'ll see about that, boy, come forth, and meet your doom!',
+  null,
+  'Boss:"finally, the end has come... for me"',
+  null,
+  '*the next weekend*',
+  'Hero:"Life is GREAT"',
+  'Hero:"guild bills paid, the big baddie is dead, and i\'ve got all the time and money that I could wish for"',
+  'Hero laughs and drinks beer from a metal mug',
+  'Hero:"so... what do I do now?"',
   null
 ]

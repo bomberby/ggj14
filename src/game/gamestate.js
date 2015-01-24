@@ -1,8 +1,11 @@
 var gamePhase = -1 //one less than first phase
-
+var gameSubPhase = 0
 mainConfig.prototype.nextState = function(){
 	gamePhase +=1;
-		switch(gamePhase)
+	gameSubPhase = 0;
+	if (typeof(this.spr_bg)!= 'undefined')
+		this.spr_bg.destroy();
+	switch(gamePhase)
 	{
 		case 0:  // phase 0 -splash
 			this.opening = game.add.sprite(0, -260, 'opening');
@@ -39,15 +42,27 @@ mainConfig.prototype.nextState = function(){
 		    this.player.body.collideWorldBounds = true;
 
 		    // Set player maximum movement speed
-		    this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
-		    this.playerAttack.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
+		    //this.player.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
+		    //this.playerAttack.body.maxVelocity.setTo(this.MAX_SPEED, this.MAX_SPEED); // x, 
 
-		    this.player.animations.add('left', [2, 3], 10, true);
-		    this.player.animations.add('right', [4, 5], 10, true);
+		    //this.player.animations.add('left', [2, 3], 10, true);
+		    //this.player.animations.add('right', [4, 5], 10, true);
 
 		    this.nextText();
-		    break;			
-		case 2:  // phase 2 - forest view
+		    break;
+	    case 2:
+		    this.spr_bg = this.game.add.graphics(0, 0);
+	        this.spr_bg.beginFill(this.fadeColor, 1);
+	        this.spr_bg.drawRect(0, 0, this.game.width, this.game.height);
+	        this.spr_bg.alpha = 1;
+	        this.spr_bg.endFill();
+
+	        this.player.position.x -= 120;
+	        this.player.position.y -= 120;
+	    	this.nextText();
+	    	break;
+		case 3:  // phase 3 - forest view
+			this.map.destroy();
 		    this.map = game.add.tilemap('map');
 		    this.map.addTilesetImage('VillageOverworldTiles', 'tileset');
 
@@ -107,11 +122,20 @@ mainConfig.prototype.stateUpdate = function(){
 		    };
 
 		    this.playerAttack.position.y = this.player.position.y;
-
+		    if (gameSubPhase == 1)
+				if (this.spr_bg.alpha>0)
+			  		this.spr_bg.alpha -= 0.01
+		  		else
+		  		 	this.spr_bg.destroy();
 		    //this.checkXMovement();
 		    //this.checkYMomvment();
-		    break;			
-		case 2:  // phase 2 - forest view
+		    break;
+		case 2:	
+			if (this.spr_bg.alpha>0)
+			  this.spr_bg.alpha -= 0.005
+			else
+  		 		this.spr_bg.destroy();
+		case 3:  // phase 3 - forest view
 		    game.physics.arcade.collide(this.player, this.layer);
 
 		    this.player.body.velocity.x = 0;
@@ -130,3 +154,28 @@ mainConfig.prototype.stateUpdate = function(){
 		    break;
 	}
 };
+
+
+mainConfig.prototype.nextSubState = function(){
+	gameSubPhase +=1;
+	switch(gamePhase)
+	{
+		case 1:
+			if (gameSubPhase == 1)
+			{	
+				this.spr_bg = this.game.add.graphics(0, 0);
+		        this.spr_bg.beginFill(0xFF3300, 1);
+		        this.spr_bg.drawRect(0, 0, this.game.width, this.game.height);
+		        this.spr_bg.alpha = 1;
+		        this.spr_bg.endFill();
+
+				this.nextText();
+			}
+			else
+				this.nextState();
+			break;
+		case 2:
+			this.nextState();
+	}
+
+}

@@ -11,6 +11,11 @@ mainConfig.prototype.checkSpaceBar = function() {
         this.handleAnimations(false);
     }
     else {
+        switch (gamePhase)
+        {
+            case 1: this.nextSubState();break;
+            case 2: this.nextSubState();break;
+        }
         if(canAttack){
             this.handleAnimations(true);
             
