@@ -23,6 +23,7 @@ mainConfig.prototype.clearText = function() {
 
     this.textholder.spr_bg.destroy();
     this.textholder.spr_bg = undefined;
+    this.textnumber += 1;
   }
 };
  
@@ -33,3 +34,14 @@ mainConfig.prototype.hasText = function() {
 mainConfig.prototype.textholder = function() {
 
 };
+
+mainConfig.prototype.nextText = function() {
+  if (this.hasText())
+    return
+  this.bubbleText(this.plot[this.textnum]);
+
+}
+mainConfig.prototype.textnum = 0;
+mainConfig.prototype.plot = ['bla','primak is indra',null,'no text after?',null]
+//todo: gamestate
+//todo: move to next text
